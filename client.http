@@ -1,0 +1,47 @@
+@baseUrl = http://localhost:8080
+@idUSer = {{create_user.response.body.id}}
+@idTask = {{create_task.response.body.id}}
+
+# @name create_user
+POST {{baseUrl}}/users/
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "name": "john doe",
+  "password": "123456"
+}
+
+###
+
+# @name create_task
+POST http://localhost:8080/tasks/
+Content-Type: application/json
+Authorization: Basic johndoe:123456
+
+{
+  "description": "Uma tarefa qualquer a ser feita.",
+  "title": "Tarefa genérica",
+  "startAt": "2023-10-13T16:45:01",
+  "endAt": "2023-10-13T17:45:01",
+  "priority": "ALTA"
+}
+
+###
+
+# @name list_tasks
+GET http://localhost:8080/tasks/
+Content-Type: application/json
+Authorization: Basic johndoe:123456
+
+###
+
+# @name update_task
+PUT http://localhost:8080/tasks/{{idTask}}
+Content-Type: application/json
+Authorization: Basic johndoe:123456
+
+{
+  "description": "Uma tarefa qualquer a ser feita que foi alterada.",
+  "title": "Tarefa genérica alterada"
+}
